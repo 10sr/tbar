@@ -1,0 +1,5 @@
+# sample data
+a 80
+bcdef 40
+ghi 20
+jk 90
