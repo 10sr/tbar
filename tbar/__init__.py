@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+"""tbar - Terminal Bar
+
+Number to bar in terminal.
+"""
+
+__version__ = "0.0.1"
+
 import sys
 
 from tbar.tbar import TBar
