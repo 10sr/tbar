@@ -3,7 +3,7 @@ tbar
 
 Terminal bar.
 
-Visualize numbers with `*`.
+Visualize values with `*`.
 
 
 Synopsis
