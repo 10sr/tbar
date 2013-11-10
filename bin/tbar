@@ -16,7 +16,8 @@ def main(argv):
     import tbar
 
     parser = ap.ArgumentParser("tbar")
-    parser.add_argument("filename", help="filename for input",
+    parser.add_argument("filename",
+                        help="filename for input. If omitted read from stdin",
                         nargs="?", default=None)
 
     parser.add_argument("-re", "--regexp",
