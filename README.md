@@ -1,9 +1,7 @@
 tbar
 ====
 
-Terminal bar.
-
-Visualize numbers with `*`.
+Visualize values with ascii characters in terminal.
 
 
 Synopsis
