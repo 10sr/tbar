@@ -8,8 +8,7 @@ class TBar():
     normdata = None
     vertical = False
 
-    def __init__(self, infile, _max=0, length=0, vertical=False):
-        self.infile = infile
+    def __init__(self, _max=0, length=0, vertical=False):
         if _max:
             self._max = _max
         if length:
@@ -18,12 +17,16 @@ class TBar():
 
         self.rawdata = []
         self.normdata = []
+        return
 
-        self.read_input()
-        self.set_normdata()
+    def add_data_itr(self, itr):
+        # itr: iterable of (key, value), where key is str, value is float
+        self.rawdata.extend(itr)
         return
 
     def __str__(self):
+        self.__set_normdata()
+
         bars = []
         maxkeylen = max(len(k) for k, v in self.normdata)
         fillspace = " " * maxkeylen
@@ -46,27 +49,13 @@ class TBar():
         else:
             return str("\n".join(bars))
 
-    def read_input(self):
-        for line in self.infile:
-            line = line.strip()
-            if len(line) == 0 or line.startswith("#"):
-                continue
-            key, sep, data = line.partition(" ")
-            key = key.strip()
-            data = data.strip()
-            if len(data) == 0:  # no data
-                self.rawdata.append((key, 0))
-            else:
-                self.rawdata.append((key, float(data)))
-        return
-
-    def set_max(self):
+    def __set_max_from_data(self):
         self._max = max(tuple(zip(*self.rawdata))[1])
         return self._max
 
-    def set_normdata(self):
+    def __set_normdata(self):
         if self._max == -1:
-            self.set_max()
+            self.__set_max_from_data()
 
         for k, v in self.rawdata:
             self.normdata.append((k, v / self._max))
