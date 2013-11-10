@@ -20,6 +20,7 @@ def main(argv):
                         help="filename for input. If omitted read from stdin",
                         nargs="?", default=None)
 
+    # TODO: add arguments for reader
     parser.add_argument("-re", "--regexp",
                         help="regular expression to extract key and value",
                         default=None)
