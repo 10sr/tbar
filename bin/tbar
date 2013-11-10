@@ -19,6 +19,10 @@ def main(argv):
     parser.add_argument("filename", help="filename for input",
                         nargs="?", default=None)
 
+    parser.add_argument("-re", "--regexp",
+                        help="regular expression to extract key and value",
+                        default=None)
+
     parser.add_argument("-m", "--max", help="value for max",
                         type=float, default=0)
     parser.add_argument("-l", "--length", help="length of bars, default to 50",
@@ -30,9 +34,11 @@ def main(argv):
 
     if args.filename:
         with open(args.filename) as f:
-            tbar.main(f, args.max, length=args.length, vertical=args.vertical)
+            tbar.main(f, regexp=args.regexp,
+                      _max=args.max, length=args.length, vertical=args.vertical)
     else:
-        tbar.main(_max=args.max, length=args.length, vertical=args.vertical)
+        tbar.main(regexp=args.regexp,
+                  _max=args.max, length=args.length, vertical=args.vertical)
 
     return
 

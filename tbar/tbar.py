@@ -25,6 +25,9 @@ class TBar():
         return
 
     def __str__(self):
+        if len(self.rawdata) == 0:
+            return ""
+
         self.__set_normdata()
 
         bars = []
