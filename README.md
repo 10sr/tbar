@@ -7,14 +7,31 @@ Visualize values with ascii characters in terminal.
 Synopsis
 --------
 
-    tbar [-h] [-m MAX] [-l LENGTH] [-v] [<options_for_reader>] [filename]
+    usage: tbar [-h] [-r REGEXP] [-c COMMENT] [-s SEP] [-f FIELD] [-m MAX]
+                [-l LENGTH] [-v]
+                [filename]
     
-    options_for_reader should be:
-        -re, --regexp REGEXP
-            Python regular expression for each line.
-            Must contain symbolic group of "key" and "value".
-
-If a filename is given, data are read from that file, otherwise from stdin.
+    Visualize values with ascii characters in terminal
+    
+    positional arguments:
+      filename              filename for input. If omitted read from stdin
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      -r REGEXP, --regexp REGEXP
+                            regular expression to extract key and value. When this
+                            option is given, -s and -f options are ignored
+      -c COMMENT, --comment COMMENT
+                            string that leading commnent strings
+      -s SEP, --sep SEP     separator of field
+      -f FIELD, --field FIELD
+                            number of field to use. FIELD must be in the form like
+                            "NUM,NUM", where the first one is key and the second
+                            is value
+      -m MAX, --max MAX     value for max
+      -l LENGTH, --length LENGTH
+                            length of bars, default to 50
+      -v, --vertical        print bars vertically
 
 
 
@@ -35,14 +52,7 @@ then the command
 
 will print bars as:
 
-        a|********************************************      |
-    bcdef|**********************                            |
-      ghi|***********                                       |
-       jk|**************************************************|
-
-Regular expressions can be used for more compilcated format:
-
-    $ bin/tbar --regexp '^(?P<key>[^ ]*) (?P<value>[^ ]*)' sample/a.txt
+                                                            90.0
         a|********************************************      |
     bcdef|**********************                            |
       ghi|***********                                       |
@@ -51,20 +61,47 @@ Regular expressions can be used for more compilcated format:
 When specifying the option `--vertical`, tbar prints bars vertically:
 
     $ ./bin/tbar --vertical --length 10 sample/a.txt
-    ----
-       *
-       *
-    *  *
-    *  *
-    *  *
-    *  *
-    ** *
-    ** *
-    ****
-    ****
-    ----
-    abgj
-     chk
-     di
-     e
-     f
+    90.0----
+           *
+           *
+        *  *
+        *  *
+        *  *
+        *  *
+        ** *
+        ** *
+        ****
+        ****
+        ----
+        abgj
+         chk
+         di
+         e
+         f
+
+Specifying Field to Show
+------------------------
+
+When extracting data from input line, there are two ways: cut-like options and
+regular expression.
+Using cut-like options is an easy way. For example, when input lines are
+
+    # sample data
+    a 80
+    bcdef 40
+    ghi 20
+    jk 90
+
+then you can use the first field as key (name) and the second as value by
+specifying the options like
+
+    --sep " " --field 1,2
+
+(Actually this options are set by default so you do not need these options for
+this simple case)
+If you want to deal with rather complicated input, you can use regular
+expression with symbolic groups instead. For example, specifying
+
+    --regexp '^(?P<key>[^ ]*) *(?P<value>[^ ]*)'
+
+means the same thing as previous example by cut-like options.
