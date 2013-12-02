@@ -21,26 +21,43 @@ def main(argv):
                         nargs="?", default=None)
 
     # TODO: add arguments for reader
-    parser.add_argument("-re", "--regexp",
-                        help="regular expression to extract key and value",
+    parser.add_argument("-r", "--regexp",
+                        help="regular expression to extract key and value. \
+                        When this option is given, -s and -f options are \
+                        ignored",
                         default=None)
+    parser.add_argument("-c", "--comment",
+                        help="string that leading commnent strings",
+                        default="#")
+    parser.add_argument("-s", "--sep",
+                        help="separator of field",
+                        default=" ")
+    parser.add_argument("-f", "--field",
+                        help="number of field to use. FIELD must be in the \
+                        form like \"NUM,NUM\", where the first one is key and \
+                        the second is value",
+                        default="1,2")
 
     parser.add_argument("-m", "--max", help="value for max",
                         type=float, default=0)
     parser.add_argument("-l", "--length", help="length of bars, default to 50",
                         type=int, default=50)
-    parser.add_argument("-v", "--vertical", help="print vertical bar",
+    parser.add_argument("-v", "--vertical", help="print bars vertically",
                         action="store_true", default=False)
 
     args = parser.parse_args(argv[1:])
 
+    main_args = dict()
+    for a in "comment", "sep", "max", "length", "regexp", "vertical":
+        main_args[a] = getattr(args, a)
+
+    main_args["field"] = tuple(int(n) for n in args.field.split(","))
+
     if args.filename:
         with open(args.filename) as f:
-            tbar.main(f, regexp=args.regexp,
-                      _max=args.max, length=args.length, vertical=args.vertical)
+            tbar.main(infile=f, **main_args)
     else:
-        tbar.main(regexp=args.regexp,
-                  _max=args.max, length=args.length, vertical=args.vertical)
+        tbar.main(infile=sys.stdin, **main_args)
 
     return
 
