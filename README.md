@@ -21,16 +21,15 @@ Synopsis
       -r REGEXP, --regexp REGEXP
                             regular expression to extract key and value. When this
                             option is given, -s and -f options are ignored
-      -c COMMENT, --comment COMMENT
-                            string that leading commnent strings
+      -c COMMENT_START, --comment COMMENT_START
+                            string that leading commnent strings, defaults to "#"
       -s SEP, --sep SEP     separator of field
-      -f FIELD, --field FIELD
-                            number of field to use. FIELD must be in the form like
-                            "NUM,NUM", where the first one is key and the second
-                            is value
+      -f NUM,NUM, --field NUM,NUM
+                            numbers of field to use as key and value, default to
+                            1,2
       -m MAX, --max MAX     value for max
       -l LENGTH, --length LENGTH
-                            length of bars, default to 50
+                            length of bars, defaults to 50
       -v, --vertical        print bars vertically
 
 
