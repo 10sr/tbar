@@ -15,7 +15,39 @@ def main(argv):
 
     import tbar
 
-    parser = ap.ArgumentParser("tbar")
+    _epilog = """\
+Specifying Field to Show:
+
+When extracting data from input line, there are two ways: cut-like options and
+regular expression.
+Using cut-like options is an easy way. For example, when input lines are
+
+    # sample data
+    a 80
+    bcdef 40
+    ghi 20
+    jk 90
+
+then you can use the first field as key (name) and the second as value by
+specifying the options like
+
+    --sep " " --field 1,2
+
+(Actually this options are set by default so you do not need these options for
+this simple case)
+If you want to deal with rather complicated input, you can use regular
+expression with symbolic groups instead. For example, specifying
+
+    --regexp '^(?P<key>[^ ]*) *(?P<value>[^ ]*)'
+
+means the same thing as previous example by cut-like options.
+"""
+
+    parser = ap.ArgumentParser("tbar",
+                               description="Visualize values with ascii characters in terminal",
+                               formatter_class=ap.
+                               RawDescriptionHelpFormatter,
+                               epilog=_epilog)
     parser.add_argument("filename",
                         help="filename for input. If omitted read from stdin",
                         nargs="?", default=None)
