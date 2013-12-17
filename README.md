@@ -4,7 +4,7 @@ tbar
 Visualize values with ascii characters in terminal.
 
 
-Synopsis
+Synopsis and Options
 --------
 
     tbar [-h] [-m MAX] [-l LENGTH] [-v] [<options_for_reader>] [filename]
