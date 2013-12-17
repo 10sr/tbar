@@ -1,5 +1,5 @@
 # sample data
-a 80
-bcdef 40
-ghi 20
-jk 90
+a 80 100
+bcdef 40 150
+ghi 20 25
+jk 90 40

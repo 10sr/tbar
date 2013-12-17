@@ -39,6 +39,7 @@ class TBar():
             sep = "|"
         for k, v in self.normdata:
             if self.vertical:
+                # reverse the string of key
                 k = k[::-1]
             bars.append(
                 (fillspace + k)[-maxkeylen:] +
@@ -46,11 +47,26 @@ class TBar():
                 ("*" * int(self.length * v) + " " * self.length)[:self.length] +
                 sep
             )
+
+        # transpose
         if self.vertical:
-            bars = tuple(zip(*bars))
-            return str("\n".join("".join(e) for e in reversed(bars)))
+            bars = zip(*bars)
+            bars = list("".join(e) for e in reversed(tuple(bars)))
+
+        # add scale strings
+        if self.vertical:
+            scalestr = str(self._max)
+            leftspaces = " " * len(scalestr)
+            for i in range(len(bars)):
+                if i == 0:
+                    bars[i] = scalestr + bars[i]
+                else:
+                    bars[i] = leftspaces + bars[i]
         else:
-            return str("\n".join(bars))
+            bars.insert(0,
+                        (" " * (maxkeylen + 1 + self.length)) + str(self._max))
+
+        return str("\n".join(bars))
 
     def __set_max_from_data(self):
         self._max = max(tuple(zip(*self.rawdata))[1])

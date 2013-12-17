@@ -2,7 +2,13 @@
 
 class Reader():
     __read_line = None          # __read_line_cut or __read_line_regexp
-    def __init__(self, infile, comment="#", sep=" ", field=(0,1), regexp=None):
+    infile = None
+    comment = None
+    regexp = None
+    sep = None
+    field = None                # start from 1
+
+    def __init__(self, infile, comment="#", sep=" ", field=(1,2), regexp=None):
         self.infile = infile
         self.comment = comment
         if regexp:
@@ -29,8 +35,8 @@ class Reader():
     def __read_line_cut(self, line):
         line = line.strip()
         elems = line.split(self.sep)
-        key = elems[self.field[0]].strip()
-        value = elems[self.field[1]].strip()
+        key = elems[self.field[0]-1].strip()
+        value = elems[self.field[1]-1].strip()
         if len(value) == 0:
             return (key, 0)
         value = float(value)
