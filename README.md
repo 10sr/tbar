@@ -104,3 +104,10 @@ expression with symbolic groups instead. For example, specifying
     --regexp '^(?P<key>[^ ]*) *(?P<value>[^ ]*)'
 
 means the same thing as previous example by cut-like options.
+
+
+License
+-------
+
+This software is released under Public Domain. For more information, see
+'LICENSE'.
