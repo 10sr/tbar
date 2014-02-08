@@ -20,7 +20,7 @@ setup(name = "tbar",
           "Topic :: Utilities",
           "Environment :: Console",
           # "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
-          "Intended Audience :: End Users/Desktop"
+          "Intended Audience :: End Users/Desktop",
           "Programming Language :: Python :: 3.2",
           "Programming Language :: Python :: 3.3",
           "License :: Public Domain"
